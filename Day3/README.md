@@ -48,3 +48,12 @@ Created two subnets using an existing VPC, internet gateway (IGW), and NAT Gatew
 ![alt text](image-11.png)
 ![alt text](image-12.png)
 
+Local State File :
+![alt text](image-13.png)
+
+Terraform state: it will list resource list which is created by terraform.
+
+# Precedence of Terraform  Variables:
+![alt text](image-14.png)
+
+
