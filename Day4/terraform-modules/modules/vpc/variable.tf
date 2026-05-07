@@ -1,0 +1,19 @@
+variable "vpc_id" {
+  type = string
+}
+
+variable "Nat_gateway_id" {
+  type = string
+}
+
+variable "public_subnet_cidr" {
+  type = string
+}
+
+variable "private_subnet_cidr" {
+  type = string
+}
+
+variable "availability_zone" {
+  type = string
+}
