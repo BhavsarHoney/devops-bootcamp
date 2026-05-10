@@ -8,9 +8,10 @@ data "aws_internet_gateway" "bootcamp" {
 
 # public Subnet
 resource "aws_subnet" "public" {
+    for_each = toset(var.public_subnet_cidr)
   vpc_id                  = var.vpc_id
-  cidr_block              = var.public_subnet_cidr
-  availability_zone       = var.availability_zone
+  cidr_block              = each.value
+  availability_zone       = element(var.availability_zone, index(var.public_subnet_cidr, each.value))
   map_public_ip_on_launch = true
 
   tags = {
@@ -20,9 +21,10 @@ resource "aws_subnet" "public" {
 }
 # private subnet
 resource "aws_subnet" "private" {
+    for_each = toset(var.private_subnet_cidr)
   vpc_id            = var.vpc_id
-  cidr_block        = var.private_subnet_cidr
-  availability_zone = var.availability_zone
+  cidr_block        = each.value
+  availability_zone = element(var.availability_zone, index(var.private_subnet_cidr, each.value))
 
   tags = {
     Name = "Hanibhavsar-19-priv-subnet"
@@ -47,7 +49,8 @@ resource "aws_route_table" "hani_private_rt" {
 
 #private route table association with private subnet 
 resource "aws_route_table_association" "private_assoc" {
-  subnet_id      = aws_subnet.private.id
+  for_each = aws_subnet.private
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.hani_private_rt.id
 }
 
@@ -67,6 +70,7 @@ resource "aws_route_table" "hani_public_rt" {
 
 #public route table association with public subnet
 resource "aws_route_table_association" "public_assoc" {
-  subnet_id      = aws_subnet.public.id
+  for_each = aws_subnet.public
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.hani_public_rt.id
 }

@@ -11,13 +11,13 @@ variable "internet_gateway_id" {
 }
 
 variable "public_subnet_cidr" {
-  type = string
+  type = list(string)
 }
 
 variable "private_subnet_cidr" {
-  type = string
+  type = list(string)
 }
 
 variable "availability_zone" {
-  type = string
+  type = list(string)
 }
