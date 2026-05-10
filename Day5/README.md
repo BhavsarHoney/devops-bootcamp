@@ -70,6 +70,7 @@ Responsibilities:
 ## c) Container Runtime
 Container runtime actually runs containers.
 
+
 EKS  Architecture :
  ![alt text](image-1.png)
 
