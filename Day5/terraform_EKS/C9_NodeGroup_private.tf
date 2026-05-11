@@ -4,12 +4,15 @@ resource "aws_eks_node_group" "private_nodes" {
   cluster_name = aws_eks_cluster.main.name
 
   #name of the node group
-  node_group_name = "${local.name}-private-ng"
+  node_group_name = "${local.name}-private-ng-hani"
 
   node_role_arn = aws_iam_role.eks_nodegroup_role.arn
 
   # Subnets where the worker nodes will be launched 
-  subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+  # subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+  subnet_ids = data.terraform_remote_state.vpc.outputs.public_subnet_ids
+
+   # To launch worker nodes in private subnets, ensure that the subnets have the appropriate tags for EKS and that the cluster's VPC configuration allows for private access to the API server.
 
   # Instance types for the nodes 
   instance_types = var.node_instance_types

@@ -21,6 +21,6 @@ output "internet_gateway_id" {
   value = var.internet_gateway_id
 }
 
-output "nat_gateway_id" {
-  value = var.nat_gateway_id
-}
+# output "nat_gateway_id" {
+#   value = var.nat_gateway_id
+# }
