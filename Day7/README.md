@@ -3,6 +3,7 @@ A StatefulSet runs a group of Pods, and maintains a sticky identity for each of 
 
 # Statefulset vs Deployment 
  **Deployment**: Best for stateless applications (e.g., web servers) where Pods can be replaced randomly.**StatefulSet**: Required for stateful applications (e.g., MySQL, PostgreSQL, ZooKeeper, Elasticsearch) where each instance maintains unique data.
+ 
 
  # Headless service 
  A Headless Service in Kubernetes is a Service that does not get a ClusterIP.

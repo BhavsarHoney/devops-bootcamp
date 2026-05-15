@@ -8,7 +8,6 @@ module "modules" {
    availability_zone = "ap-south-1a"
 }
 
-
 output "vpc_id" {
   value = module.vpc.vpc_id
 }
