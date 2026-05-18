@@ -12,7 +12,7 @@ module "modules" {
   source = "./modules/vpc"
     vpc_id = "vpc-02358ddc1cb955bcd"
     internet_gateway_id = "igw-095a43d99a5ec72d6"
-    public_subnet_cidr = ["10.0.29.0/24","10.0.32.0/24"]
+    public_subnet_cidr = ["10.0.29.0/24","10.0.33.0/24"]
     private_subnet_cidr = ["10.0.129.0/24"]
     availability_zone = ["ap-south-1a","ap-south-1b"]
 }
