@@ -1,0 +1,33 @@
+#public subnet tags for EKS LOAD BALANCER
+resource "aws_ec2_tag" "eks_public_subnet_tags" {
+  for_each    = toset(data.terraform_remote_state.vpc.outputs.public_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/role/elb"
+  value       = "1"
+}
+
+#private subnet tags for EKS worker nodes
+resource "aws_ec2_tag" "eks_private_subnet_tags" {
+  for_each    = toset(data.terraform_remote_state.vpc.outputs.private_subnet_ids)
+  resource_id = each.value
+  key         = "kubernetes.io/role/internal-elb"
+  value       = "1"
+}
+
+##shared tags for public and private subnets to identify cluster ownership
+resource "aws_ec2_tag" "eks_subnet_tag_public_cluster" {
+    for_each    = toset(data.terraform_remote_state.vpc.outputs.public_subnet_ids)
+    resource_id = each.value
+    key         = "kubernetes.io/cluster/${local.eks_cluster_name}"
+    value       = "shared"
+}
+
+resource "aws_ec2_tag" "eks_subnet_tag_private_cluster" {
+    for_each    = toset(data.terraform_remote_state.vpc.outputs.private_subnet_ids)
+    resource_id = each.value
+    key         = "kubernetes.io/cluster/${local.eks_cluster_name}"
+    value       = "shared"
+}
+
+
+

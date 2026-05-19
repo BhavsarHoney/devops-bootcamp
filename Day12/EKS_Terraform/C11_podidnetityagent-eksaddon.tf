@@ -1,0 +1,39 @@
+# fatch default version of pod identity agent addon for eks cluster
+data "aws_eks_addon_version" "pia_default" {
+  addon_name = "eks-pod-identity-agent"
+  kubernetes_version = aws_eks_cluster.main.version
+}
+
+# fatch latest version of pod identity agent addon for eks cluster
+data "aws_eks_addon_version" "pia_lateest" {
+  addon_name = "eks-pod-identity-agent"
+  kubernetes_version = aws_eks_cluster.main.version
+  most_recent = true
+}
+
+# pode identity agent 
+resource "aws_eks_addon" "podidentity" {
+   depends_on = [aws_eks_node_group.private_nodes]
+   cluster_name = aws_eks_cluster.main.id
+    addon_name = "eks-pod-identity-agent"
+    resolve_conflicts_on_create = "OVERWRITE"
+    resolve_conflicts_on_update = "OVERWRITE"
+    addon_version = data.aws_eks_addon_version.pia_lateest.version
+}
+
+#ouput 
+output pod_identity_eksaddon_defult_version {
+  value = data.aws_eks_addon_version.pia_default.version
+}
+
+output "pod_identity_agent_eksaddon_latest_version" {
+  value = data.aws_eks_addon_version.pia_lateest.version
+}
+
+output "pod_identity_agent_eksaddon_arn" {
+  value = aws_eks_addon.podidentity.arn
+}
+
+output "pod_identity_agent_eksaddon_id" {
+  value = aws_eks_addon.podidentity.id
+}
